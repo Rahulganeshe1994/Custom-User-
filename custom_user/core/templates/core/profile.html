@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %} User Profile  {% endblock title %}
+{% block content %}
+  
+ <nav aria-label="breadcrumb" class="main-breadcrumb">
+            <ol class="breadcrumb">
+              
+            </ol>
+          </nav>
+<div class="row gutters-sm">
+ <div class="col-md-4 mb-3">
+  <div class="card" >
+    {% if user.profile_pic %}
+  <img src="{{user.profile_pic.url}}" class="card-img-top" alt="...">
+    {% else %}
+
+    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+
+    {% endif %}
+  <div class="card-body">
+    <p class="card-text">  {{user.first_name}}   {{user.last_name}}</p>
+    <p class="card-text">Rol {{user.role}}</p>
+    <p class="card-text"> Address {{user.address}}</p>
+    <button class='btn btn-primary'>Follow</button>
+    
+  </div>
+</div>
+</div>
+  
+  <div class='col-md-8'>
+    <div class='card mb-3'>
+        <div class='card-body'>
+            <div class='row'>
+                <div class='col-sm-3'>
+                    <h6 class='mb-0'>Bio :-</h6></div>
+                    <div class='col-sm-9 text-secondary'>{{user.bio}}</div>
+
+            </div><hr>
+
+            <div class='row'>
+                <div class='col-sm-3'>
+                    <h6 class='mb-0'>Email :-</h6></div>
+                    <div class='col-sm-9 text-secondary'>{{user.email}}</div>
+
+            </div><hr>
+
+            <div class='row'>
+                <div class='col-sm-3'>
+                    <h6 class='mb-0'>Phone :-</h6></div>
+                    <div class='col-sm-9 text-secondary'>{{user.phone}}</div>
+
+            </div><hr>
+            <div class='row'>
+                <div class='col-sm-3'>
+                    <h6 class='mb-0'>Username :-</h6></div>
+                    <div class='col-sm-9 text-secondary'>{{user.username}}</div>
+
+            </div><hr>
+
+            <div class='row'>
+                <div class='col-sm-3'>
+                    <h6 class='mb-0'>Address :-</h6></div>
+                    <div class='col-sm-9 text-secondary'>{{user.address}}</div>
+
+            </div><hr>
+
+             <div class='row'>
+                <div class='col-sm-3'>
+                    <h6 class='mb-0'>Rol :-</h6></div>
+                    <div class='col-sm-9 text-secondary'>{{user.role}}</div>
+
+            </div><hr>
+
+            <div class='row'>
+                <div class='col-sm-12'>
+                <a class="btn btn-info" href="{% url 'update_profile'%}">Edit Your Profile </a>
+            </div><hr>
+
+        </div>
+
+    </div>
+
+  </div>
+
+{% endblock content %}

@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .forms import RegisterForm
+from .forms import RegisterForm ,UpdateProfileForm,UserPasswordChangeForm
 from django.contrib import messages
 from django.contrib.auth import authenticate ,login,logout
 
@@ -13,7 +13,7 @@ def signup(request):
         if form.is_valid():
             form.save()
             messages.success(request,"Account Created Successfully")
-            return redirect('/')
+            return redirect('profile')
     context = {'form':form}
     return render(request,'core/signup.html',context)
 
@@ -25,7 +25,7 @@ def signin(request):
         user = authenticate(request,email=email,password=password)
         if user is not None:
             login(request,user)
-            return redirect('signup')
+            return redirect('profile')
         else:
             messages.warning(request,"Invalid Credentials")
             return redirect('signin')
@@ -36,3 +36,23 @@ def signin(request):
 def signout(request):
     logout(request)
     return redirect('signin')
+
+def profile(request):
+    user = request.user
+    context = {'user':user}
+    return render(request,'core/profile.html',context)
+
+def update_profile(request):
+    if request.user.is_authenticated:
+        user = request.user
+        form = UpdateProfileForm(instance=user)
+        if request.method == "POST":
+            form = UpdateProfileForm(request.POST,request.FILES,instance=user)
+            if form.is_valid():
+                form.save()
+                messages.success(request,"Profile Update Successfully")
+                return redirect('profile')
+    context = {'form':form}
+    return render(request ,'core/update_profile.html',context)
+
+
